@@ -1,0 +1,11 @@
+v0.1.0
+- Basic function that enables enduser to downlaod youtube files using the youtube-dl function.
+- User is prompted to give the download link and the download number that defines the downloaded file type
+
+v0.2.0
+- Settings in sourcecode included, these can be changed in the bat file
+- Upcomming but not finished, custom naming scheme for downloaded files and custom download directory
+- Download history will write all downloaded youtube links with download option to a txt file named Youtube-DsimpLe-history.txt
+- Working shutdown function that will prompt some extra info about the project and its github site etc.
+- Startup verbose that lists all settings that are changed and informs the end user that the settings can be changed in the bat file / source code.
+- A verbose option that will enable ECHO for debugging purposes and to make it less SPOooooooKKKyy :))
