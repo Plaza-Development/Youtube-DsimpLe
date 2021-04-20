@@ -44,17 +44,44 @@ GOTO _settings
 	REM	)
 	REM ==============================================================
 	
+	GOTO _inputscript
+
+:_inputscript
+	REM All important data will be collected here.
+
+	SET /p _link= Link: 
+	ECHO Would you want to download a SPECIFIC (advanced) file type?
+	SET /p _typeselect= y (Advanced) / n (Default): 
+
+	IF %_typeselect%==y: GOTO _filetypescript
+	IF %_typeselect%==n: GOTO _predefinedscript
+	
+:_predefinedscript
+	SET /p _preset= File type? (type help for options): 
+	IF %_preset%==help GOTO _presethelp
+	IF %_preset%==mp4 720 SET _downloadtype= 22
+	GOTO _downloadscript
+
+:_presethelp
+	ECHO -------------------------------------------------------------------------------------
+	ECHO These are all the predefined download options:
+	ECHO All video formats can also be configuered with resolutions (480, 720, 1080, 1440, 4k)
+	ECHO .mp3 | ECHO .mp4 | ECHO .webm
+	ECHO -------------------------------------------------------------------------------------
+	PAUSE
+	GOTO _predefinedscript
+	
+:_filetypescript
+	youtube-dl.exe -F %_link%
+	SET /p _downloadtype= File number: 
 	GOTO _downloadscript
 
 :_downloadscript
 	REM The main download script that runs the bulk of the functionality of this code.
 
-	SET /p _link= Link: 
-	youtube-dl.exe -F %_link%
-	SET /p _downloadtype= "File number: 
 	youtube-dl.exe -f %_downloadtype% %_link%
 	IF %_dlhistory%==True (
-		ECHO Download type: %_downloadtype% Download link: %_link%> Youtube-DsimpLe-history.txt
+		ECHO Download link: %_link% Download type: %_downloadtype%>> Youtube-DsimpLe-history.txt
 	)
 	ECHO Donwload Completed
 	GOTO _chose
